@@ -1,0 +1,4 @@
+class samba::server {
+
+
+}
