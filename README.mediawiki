@@ -12,7 +12,7 @@ This is a very rough draft and I am still in the process of making it work just 
 
 The example below is a role I use to define similar samba servers in my environment, but the usage is the same for nodes.
 
-<pre>
+<code>
 class role_samba_server {
 	$concat_basedir="/usr/local/share/puppet"
 	include concat::setup
@@ -23,13 +23,13 @@ class role_samba_server {
 
 	include samba::server
 }
-</pre>
+</code>
 
 == Share definition ==
 
 Here's an example of a share definition.
 
-<pre>
+<code>
 samba::share {
 'example':
 	path			=> '/var/www/example.com',
@@ -40,7 +40,7 @@ samba::share {
 	create_mask		=> '664',
 	dir_mask		=> '775';
 }
-</pre>
+</code>
 
 
 = To Do = 
