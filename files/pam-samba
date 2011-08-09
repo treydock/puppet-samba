@@ -1,0 +1,11 @@
+#%PAM-1.0
+# This file is managed by Puppet
+auth       required	pam_nologin.so
+auth       include	password-auth
+auth        sufficient    pam_winbind.so use_first_pass
+account    include	password-auth
+account     sufficient    pam_winbind.so use_first_pass
+session    include	password-auth
+session     optional      pam_winbind.so use_first_pass
+password   include	password-auth
+password    sufficient    pam_winbind.so use_first_pass
