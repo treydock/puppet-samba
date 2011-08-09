@@ -1,0 +1,43 @@
+# File managed by Puppet
+#============================ Share Definitions ==============================
+[<%= name %>]
+	available = yes
+<% if comment -%>
+	comment = <%= comment %>
+<% end -%>
+<% if path -%>
+	path = <%= path %>
+<% end -%>
+<% if public -%>
+	public = <%= public %>
+<% end -%>
+<% if writeable -%>
+	writeable = <%= writeable %>
+<% end -%>
+<% if browseable  -%>
+	browseable = <%= browseable %>
+<% end -%>
+<% if invalid_users -%>
+	invalid users = <%= invalid_users %>
+<% end -%>
+<% if create_mask -%>
+	create mask = <%= create_mask %>
+<% end -%>
+<% if dir_mask -%>
+	directory mask = <%= dir_mask %>
+<% end -%>
+<% if force_create_mode -%>
+	force create mode = <%= force_create_mode %>
+<% end -%>
+<% if force_dir_mode -%>
+	force directory mode = <%= force_dir_mode %>
+<% end -%>
+<% if write_list -%>
+	write list = <%= write_list %>
+<% end -%>
+<% if valid_users -%>
+	valid users = <%= valid_users %>
+<% end -%>
+<% if inherit_acls -%>
+	inherit acls = yes
+<% end -%>

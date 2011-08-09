@@ -129,14 +129,17 @@
 
 ;	password server = <NT-Server-Name>
 
+	kerberos method = system keytab
+;	dedicated keytab file = /etc/samba/krb5.keytab
+
 	winbind enum users = Yes
 	winbind enum groups = Yes
 	winbind use default domain = Yes
 	winbind nested groups = Yes
+	winbind expand groups = 3
 	winbind separator = +
 	idmap uid = 600-20000
 	idmap gid = 600-20000
-	template primary group = "<%= primary_group %>"
 	template shell = /sbin/nologin
 
 	allow trusted domains = Yes
@@ -145,6 +148,9 @@
 	client use spnego = Yes
 	ntlm auth = Yes
 	lanman auth = No
+
+	# Permissions work when files made on Mac via CIFS
+	unix extensions = no
 
 
 # ----------------------- Browser Control Options ----------------------------
@@ -220,56 +226,4 @@
 
 #============================ Share Definitions ==============================
 
-;[homes]
-;	comment = Home Directories
-;	browseable = no
-;	writable = yes
-;	valid users = %S
-;	valid users = MYDOMAIN\%S
-
-;[printers]
-;	comment = All Printers
-;	path = /var/spool/samba
-;	browseable = no
-;	guest ok = no
-;	writable = no
-;	printable = yes
-
-# Un-comment the following and create the netlogon directory for Domain Logons
-;	[netlogon]
-;	comment = Network Logon Service
-;	path = /var/lib/samba/netlogon
-;	guest ok = yes
-;	writable = no
-;	share modes = no
-
-
-# Un-comment the following to provide a specific roving profile share
-# the default is to use the user's home directory
-;	[Profiles]
-;	path = /var/lib/samba/profiles
-;	browseable = no
-;	guest ok = yes
-
-
-# A publicly accessible directory, but read only, except for people in
-# the "staff" group
-;	[public]
-;	comment = Public Stuff
-;	path = /home/samba
-;	public = yes
-;	writable = yes
-;	printable = no
-;	write list = +staff
-;[fog]
-;	available = yes
-;  	comment = FOG deploy share
-;   path = /opt/fog/share
-;	oplocks = no
-;	level2 oplocks = no
-;	writeable = yes
-;   browseable = yes
-;   invalid users = root
-;   create mask = 0660
-;   directory mask = 0770
-;   valid users = @CLLA+ACAD-Admins @CLLA+COMM-Admins @CLLA+PSYC-Admins trey
+include=<%= samba_share_file %>
