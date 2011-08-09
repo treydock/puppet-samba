@@ -1,29 +1,31 @@
 define samba::share (
-  	$netmask=false,
-	$range_start=false,
-	$range_end=false,
-  	$router=false,
-	$domain_name=false,
-	$dns_servers=false,
-	$pxe_only=false,
-  	$pxe_opts=false) {
+  	$comment=false,
+	$path=false,
+	$public=false,
+  	$writeable=false,
+	$browseable=false,
+	$invalid_users=false,
+	$create_mask=false,
+  	$dir_mask=false,
+	$force_create_mode=false,
+	$force_dir_mode=false,
+	$inherit_acls=false,
+	$write_list=false,
+	$valid_users=false) {
 
-	include samba::params
+	include concat::setup
 
-# TODO: use concatfilepart to add include line to sambad.conf rather than statically set path
-#	common::concatfilepart {"samba.${name}":
-#    	file => "${samba::params::samba_config_dir}/sambad.conf",
-#    	ensure => $ensure,
-#    	content => "include \"${samba::params::samba_config_dir}/subnets/${name}.conf\";\n",
-#  	}
-
-#	file {"${samba::params::samba_config_dir}/subnets/${name}.conf":
-	file {"${samba::params::samba_config_dir}/subnets/local.conf":
-    	ensure 	=> present,
+	concat {"${samba::samba_config_dir}/shares.conf":
     	owner  	=> 'root',
     	group  	=> 'root',
-    	content => template("samba/subnet_conf.erb"),
-    	notify  => Service["sambad"],
+		mode	=> '644',
+		notify	=> Service['smb'],
   	}
+
+	concat::fragment { "smb_share_$name":
+		target	=> "${samba::samba_config_dir}/shares.conf",
+		content	=> template('samba/smb_share_conf.erb'),
+		order	=> 01,
+	}
 }
 
