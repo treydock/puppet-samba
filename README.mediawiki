@@ -30,16 +30,16 @@ class role_samba_server {
 Here's an example of a share definition.
 
 <pre>
-	samba::share {
-		'anth':
-			path			=> '/var/www/example.com',
-			writeable		=> 'yes',
-			browseable		=> 'yes',
-			invalid_users	=> 'root',
-			valid_users		=> '@staff',
-			create_mask		=> '664',
-			dir_mask		=> '775';
-	}
+samba::share {
+'example':
+	path			=> '/var/www/example.com',
+	writeable		=> 'yes',
+	browseable		=> 'yes',
+	invalid_users	=> 'root',
+	valid_users		=> '@staff',
+	create_mask		=> '664',
+	dir_mask		=> '775';
+}
 </pre>
 
 
