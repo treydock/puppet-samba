@@ -1,5 +1,7 @@
 class samba::server inherits samba {
 
+	include concat::setup
+
     package { [ "$samba_package", "$samba_client_package", "$samba_common_package", "$samba_winbind_package" ] :
             ensure      => installed,
     }
@@ -31,6 +33,11 @@ class samba::server inherits samba {
             group       => root,
             mode        => 644,
             source	 	=> "puppet:///modules/samba/pam-samba";
+
+		'/var/lock/samba':
+			ensure	=> directory,
+			owner	=> 'root',
+			group	=> 'root';
         }
 
 
@@ -38,14 +45,21 @@ class samba::server inherits samba {
         "smb":
             enable		=> true,
             ensure      => running,
-            hasstatus   => false,
+            hasstatus   => true,
             hasrestart  => true,
             require     => [ Package["$samba_package"], File["$samba_config"] ];
         "winbind":
             enable		=> true,
             ensure      => running,
-            hasstatus   => false,
+            hasstatus   => true,
             hasrestart  => true,
             require     => [ Package["$samba_winbind_package"], File["$samba_config"] ];
     }
+
+	concat {"${samba::samba_config_dir}/shares.conf":
+    	owner  	=> 'root',
+    	group  	=> 'root',
+		mode	=> '644',
+		notify	=> [ Service['smb'] ], #, Service['winbind'] ],
+  	}
 }
