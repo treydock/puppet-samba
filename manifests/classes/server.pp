@@ -34,6 +34,12 @@ class samba::server inherits samba {
             mode        => 644,
             source	 	=> "puppet:///modules/samba/pam-samba";
 
+        "/etc/pam.d/password-auth-ac":
+            owner       => root,
+            group       => root,
+            mode        => 644,
+            source	 	=> "puppet:///modules/samba/pam-password-auth-ac";
+
 		'/var/lock/samba':
 			ensure	=> directory,
 			owner	=> 'root',
