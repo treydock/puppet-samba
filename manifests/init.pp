@@ -1,6 +1,3 @@
-import "classes/*.pp"
-import "definitions/*.pp"
-
 class samba {
 	
     $samba_config_dir = $operatingsystem ? {
