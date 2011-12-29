@@ -15,6 +15,7 @@ class samba::server inherits samba {
             require		=> Package["$samba_package"];
 
         "$samba_config":
+			ensure		=> present,
             owner       => root,
             group       => root,
             mode        => 644,
@@ -23,27 +24,39 @@ class samba::server inherits samba {
 			notify		=> Service['smb'];
 
         "/etc/nsswitch.conf":
+			ensure		=> present,
             owner       => root,
             group       => root,
             mode        => 644,
             source	 	=> "puppet:///modules/samba/$nss_config";
 
         "/etc/pam.d/samba":
+			ensure		=> present,
             owner       => root,
             group       => root,
             mode        => 644,
             source	 	=> "puppet:///modules/samba/pam-samba";
 
         "/etc/pam.d/password-auth-ac":
+			ensure		=> present,
             owner       => root,
             group       => root,
             mode        => 644,
-            source	 	=> "puppet:///modules/samba/pam-password-auth-ac";
+            #source	 	=> "puppet:///modules/samba/pam-password-auth-ac";
+            content	 	=> template('samba/password_auth_ac.erb');
 
 		'/var/lock/samba':
 			ensure	=> directory,
 			owner	=> 'root',
 			group	=> 'root';
+
+        "/etc/krb5.conf":
+			ensure		=> present,
+            owner       => root,
+            group       => root,
+            mode        => 644,
+            source	 	=> "puppet:///modules/samba/krb5.conf";
+
         }
 
 

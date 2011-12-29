@@ -54,10 +54,10 @@ protocols:  files
 rpc:        files
 services:   files
 
-netgroup:   nisplus
+netgroup:   files
 
 publickey:  nisplus
 
-automount:  files nisplus
+automount:  files
 aliases:    files nisplus
 

@@ -134,13 +134,15 @@
 
 	winbind enum users = Yes
 	winbind enum groups = Yes
-	winbind use default domain = Yes
+	winbind use default domain = true
+;	winbind offline logon = false
 	winbind nested groups = Yes
 	winbind expand groups = 3
 	winbind separator = +
 	idmap uid = 600-20000
 	idmap gid = 600-20000
-	template shell = /sbin/nologin
+	template shell = /bin/bash
+	template homedir = /home/CLLA/%U
 
 	allow trusted domains = Yes
 	server signing = mandatory

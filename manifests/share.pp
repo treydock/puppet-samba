@@ -14,6 +14,7 @@ define samba::share (
 	$valid_users=false) {
 
 	include concat::setup
+	include samba
 
 
 	concat::fragment { "smb_share_$name":
