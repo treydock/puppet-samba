@@ -46,8 +46,15 @@ samba::share {
 }
 ```
 
+AD Group Integration
+--------------------
+
+The password_auth_ac template for PAM grants access to a group that is hostname-access.  This is an example of one way to manage Linux access on a samba server.  In my Active Directory I create an access group for each server that is the first layer of control for all forms of access (File share and SSH).
+
+
 To Do
 ======
 
+* Convert to parameterized module
 * Fully document all options
 * Expand the server functions this samba conig can be used for
